@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* accent colours as RGB triplets so Tailwind opacity modifiers work (bg-accent/20) */
+  --accent: 232 69 122;
+  --accent-soft: 248 211 223;
+  /* flavour palette; --melt is the colour of melted cream (follows the hero flavour picker) */
+  --strawberry: #F7A1BE; --vanilla: #FFF1C9; --mint: #B8F0DC; --mango: #FFC857; --choco: #5A2A12;
+  --melt: var(--strawberry);
+  --drip-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60' preserveAspectRatio='none'%3E%3Cpath d='M0 0H100V9C96 9 95 11 95 15V24C95 29 89 29 89 24V14C89 11 86 9 81 9C75 9 73 12 73 17V44C73 51 64 51 64 44V16C64 12 61 9 55 9C49 9 47 11 47 14V30C47 36 39 36 39 30V14C39 11 36 9 31 9C25 9 23 12 23 16V50C23 58 14 58 14 50V15C14 11 11 9 6 9C3 9 1 10 0 11Z'/%3E%3C/svg%3E");
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-paper font-sans text-ink antialiased; overflow-x: hidden; }
+  /* Pastel colour washes fixed behind the page: the glass cards blur these */
+  body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(40vw 40vw at 8% 12%, rgb(var(--accent) / .28), transparent 70%),
+      radial-gradient(38vw 38vw at 92% 18%, #FFE6A3, transparent 70%),
+      radial-gradient(45vw 45vw at 75% 92%, #CFF5E7, transparent 70%),
+      radial-gradient(35vw 35vw at 15% 85%, #E4DCFF, transparent 70%),
+      #FBF5EA; }
+  /* the display face has no italic, so never let the browser fake one */
+  .font-serif { font-style: normal; font-weight: 700; letter-spacing: -0.02em; }
+  em { font-style: normal; }
+  button { cursor: pointer; }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition duration-200 active:scale-[.97] disabled:pointer-events-none disabled:opacity-40; }
+  .btn-dark { @apply btn bg-ink text-paper hover:bg-accent; }
+  .btn-light { @apply btn border border-white/80 bg-white/55 backdrop-blur-md hover:bg-white/85; }
+  .btn-accent { @apply btn bg-accent text-white hover:brightness-110; }
+  /* Frosted glass card: see-through white, blurred background, light edge, soft shadow */
+  .glass { @apply rounded-4xl border border-white/70 bg-white/45 backdrop-blur-xl backdrop-saturate-150;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 24px 50px -28px rgba(35,26,21,.35); }
+  /* Darker glass for panels that sit on the light page but need white text */
+  .glass-dark { @apply rounded-4xl border border-white/10 bg-ink/80 text-paper backdrop-blur-xl;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 24px 50px -28px rgba(35,26,21,.5); }
+  .eyebrow { @apply mb-4 inline-block -rotate-1 rounded-sm bg-butter px-2 py-0.5 font-mono text-[13px] font-bold uppercase tracking-wide text-ink; }
+  .h2 { @apply font-serif text-[clamp(40px,5.5vw,76px)] leading-[.95]; }
+  .h2 em { @apply text-accent; }
+  .lead { @apply mt-4 max-w-xl text-lg leading-relaxed text-ink/70; }
+  .section { @apply px-[clamp(16px,5vw,80px)] py-[clamp(64px,9vw,120px)]; }
+  .field { @apply grid gap-1.5 text-[13px] font-bold; }
+  .input { @apply w-full rounded-2xl border-[1.5px] border-white/80 bg-white/60 px-3.5 py-3 font-normal outline-none transition focus:border-accent; }
+  .chip { @apply inline-flex items-center gap-2.5 rounded-full border-[1.5px] border-ink/10 py-2 pl-2 pr-4 text-sm font-bold transition hover:border-ink/30; }
+  .chip-on { @apply border-ink bg-ink text-paper; }
+  .seg { @apply inline-flex gap-1 rounded-full border border-white/70 bg-white/45 p-1 backdrop-blur-md; }
+  .seg > button { @apply rounded-full px-5 py-2 text-sm font-bold text-ink/60 transition; }
+  .seg > button[aria-pressed='true'] { @apply bg-ink text-paper; }
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease-out, transform .6s ease-out; }
+  .reveal.in { opacity: 1; transform: none; }
+  .switch { @apply relative h-[26px] w-11 shrink-0 rounded-full bg-[#D9CFC7] transition after:absolute after:left-[3px] after:top-[3px] after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow after:transition-transform; }
+  .switch[aria-checked='true'] { @apply bg-mint after:translate-x-[18px]; }
+
+  /* Striped shop awning used as a section divider */
+  .awning { height: 46px; background: repeating-linear-gradient(90deg, rgb(var(--accent)) 0 44px, #FBF5EA 44px 88px); position: relative; }
+  .awning::after { content: ''; position: absolute; inset: auto 0 -18px 0; height: 18px;
+    background: radial-gradient(circle at 22px 0, rgb(var(--accent)) 21px, transparent 22px) 0 0 / 88px 18px repeat-x,
+                radial-gradient(circle at 22px 0, #FBF5EA 21px, transparent 22px) 44px 0 / 88px 18px repeat-x; }
+
+  /* Faint paper grain so flat colour doesn't look digital */
+  .grain { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+}
+
+
+
+/* ---------------- Melt interactions (shop) ---------------- */
+@layer components {
+  /* hovering a card makes coloured cream drip down from its top edge */
+  .melt-hover::after {
+    content: ''; position: absolute; inset: 0 0 auto 0; height: 58%; z-index: 2; pointer-events: none;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--drip, var(--strawberry)) 88%, #5A2A12), var(--drip, var(--strawberry)));
+    -webkit-mask: var(--drip-mask) top / 100% 100% no-repeat; mask: var(--drip-mask) top / 100% 100% no-repeat;
+    transform: scaleY(0); transform-origin: top; transition: transform .8s cubic-bezier(.22, 1.25, .36, 1);
+  }
+  .melt-hover:hover::after, .melt-hover:focus-visible::after { transform: scaleY(1); }
+
+  /* small flavour swatches grow a drop underneath on hover */
+  .swatch-drip { position: relative; }
+  .swatch-drip::after {
+    content: ''; position: absolute; left: 50%; top: 62%; width: 30%; height: 45%; margin-left: -15%;
+    background: var(--drip, var(--strawberry)); border-radius: 50% 50% 50% 50% / 38% 38% 62% 62%;
+    transform: translateY(-40%) scale(.2); opacity: 0; transition: transform .55s cubic-bezier(.3, 1.6, .5, 1), opacity .3s;
+  }
+  .group:hover .swatch-drip::after { transform: translateY(35%) scale(1); opacity: 1; }
+  .group:hover .swatch-drip { animation: jelly .8s ease; }
+}
+
+/* ---------------- Admin panel (standard dashboard look) ---------------- */
+@layer components {
+  .admin {
+    --primary: #0d6efd; --success: #198754; --warning: #ffc107; --danger: #dc3545; --info: #0dcaf0;
+    --border: #dee2e6; --muted: #6c757d; --text: #212529; --light: #f8f9fa;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    @apply bg-[#f4f6f9] text-[15px] text-[#212529];
+  }
+  .admin .font-serif, .admin .font-mono { font-family: inherit; letter-spacing: normal; }
+  .admin .num { font-variant-numeric: tabular-nums; }
+
+  /* buttons */
+  .admin .btn-dark, .admin .btn-light, .admin .btn-accent {
+    @apply rounded px-3 py-1.5 text-[14px] font-normal backdrop-blur-none active:scale-100; box-shadow: none; border: 1px solid transparent; }
+  .admin .btn-dark { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .admin .btn-dark:hover { background: #0b5ed7; }
+  .admin .btn-light { background: #fff; border-color: #ced4da; color: var(--text); }
+  .admin .btn-light:hover { background: #e9ecef; }
+  .admin .btn-accent { background: var(--danger); border-color: var(--danger); color: #fff; }
+  .btn-sm { @apply rounded border px-2 py-1 text-[13px] leading-tight transition; }
+  .btn-sm-primary { @apply btn-sm border-[#0d6efd] text-[#0d6efd] hover:bg-[#0d6efd] hover:text-white; }
+  .btn-sm-secondary { @apply btn-sm border-[#6c757d] text-[#6c757d] hover:bg-[#6c757d] hover:text-white; }
+  .btn-sm-danger { @apply btn-sm border-[#dc3545] text-[#dc3545] hover:bg-[#dc3545] hover:text-white; }
+
+  /* forms */
+  .admin .input { @apply rounded border border-[#ced4da] bg-white px-3 py-1.5 text-[15px] backdrop-blur-none focus:border-[#86b7fe] focus:ring-4 focus:ring-[#0d6efd]/20; }
+  .admin .field { @apply gap-1 text-[14px] font-semibold text-[#212529]; }
+  .form-text { @apply mt-1 text-[13px] font-normal text-[#6c757d]; }
+  .admin .switch { @apply h-5 w-9 border border-[#adb5bd] bg-white after:left-[2px] after:top-[2px] after:h-3.5 after:w-3.5 after:bg-[#adb5bd] after:shadow-none; }
+  .admin .switch[aria-checked='true'] { @apply border-[#0d6efd] bg-[#0d6efd] after:translate-x-4 after:bg-white; }
+
+  /* cards */
+  .admin .glass, .card { @apply rounded border border-[#dee2e6] bg-white backdrop-blur-none; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .card-header { @apply flex flex-wrap items-center justify-between gap-2 border-b border-[#dee2e6] bg-[#f8f9fa] px-4 py-3; }
+  .card-header h3 { @apply text-[16px] font-semibold; }
+  .card-body { @apply p-4; }
+
+  /* coloured stat boxes */
+  .stat { @apply relative overflow-hidden rounded p-4 text-white; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+  .stat b { @apply block text-[30px] font-bold leading-tight; }
+  .stat span { @apply text-[15px]; }
+
+  /* tables */
+  .table { @apply w-full border-collapse text-[14px]; }
+  .table th, .table td { @apply border border-[#dee2e6] px-3 py-2 text-left align-middle; }
+  .table thead th { @apply bg-[#f8f9fa] font-semibold; }
+  .table tbody tr:nth-child(odd) td { background: #fbfbfc; }
+  .table tbody tr:hover td { background: #f1f3f5; }
+
+  /* badges */
+  .badge { @apply inline-block whitespace-nowrap rounded px-1.5 py-0.5 text-[12px] font-semibold leading-none text-white; }
+  .badge-primary { @apply badge bg-[#0d6efd]; }
+  .badge-secondary { @apply badge bg-[#6c757d]; }
+  .badge-success { @apply badge bg-[#198754]; }
+  .badge-warning { @apply badge bg-[#ffc107] text-[#212529]; }
+  .badge-danger { @apply badge bg-[#dc3545]; }
+  .badge-info { @apply badge bg-[#0dcaf0] text-[#212529]; }
+
+  .alert-warning { @apply rounded border border-[#ffe69c] bg-[#fff3cd] px-4 py-2.5 text-[14px] text-[#664d03]; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1; transform: none; }
+}
