@@ -22,7 +22,8 @@ export default function Login() {
     e.preventDefault();
     setBusy(true); setError('');
     try {
-      setSession(await authApi.login({ email, password }));
+      // ignore stray spaces from copy-paste (" scoop123" would otherwise fail)
+      setSession(await authApi.login({ email: email.trim(), password: password.trim() }));
       nav(from, { replace: true });
     } catch (err) {
       setError(errorMessage(err));
@@ -44,7 +45,7 @@ export default function Login() {
             <label className="flex items-center gap-2 text-[14px]"><input type="checkbox" checked={show} onChange={(e) => setShow(e.target.checked)} />Show password</label>
             {error && <div className="rounded border border-[#f1aeb5] bg-[#f8d7da] px-3 py-2 text-[14px] text-[#842029]" role="alert">{error}</div>}
             <button disabled={busy} className="btn-dark w-full !py-2">{busy ? 'Signing in...' : 'Sign In'}</button>
-            <Link to="/" className="text-center text-[14px] text-[#0d6efd] hover:underline">Back to website</Link>
+            <Link to="/" className="text-center text-[14px] text-[#1e3a5f] hover:underline">Back to website</Link>
           </form>
         </div>
         {USE_MOCK && (

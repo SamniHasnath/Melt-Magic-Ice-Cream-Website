@@ -32,18 +32,18 @@ export default function AdminLayout() {
   return (
     <div className="admin min-h-screen md:grid md:grid-cols-[240px_1fr]">
       {/* sidebar */}
-      <aside className={`${menu ? 'block' : 'hidden'} bg-[#343a40] text-[#c2c7d0] md:sticky md:top-0 md:block md:h-screen`}>
-        <Link to="/admin" className="block border-b border-[#4b545c] px-4 py-[15px] text-[19px] text-white">
+      <aside className={`${menu ? 'block' : 'hidden'} bg-[#1e3a5f] text-[#c9d4e2] md:sticky md:top-0 md:block md:h-screen`}>
+        <Link to="/admin" className="block border-b border-[#2c4a70] px-4 py-[15px] text-[19px] text-white">
           <b>Melt &amp; Magic</b> <span className="font-light">Admin</span>
         </Link>
-        <div className="border-b border-[#4b545c] px-4 py-3 text-[14px]">
+        <div className="border-b border-[#2c4a70] px-4 py-3 text-[14px]">
           <div className="text-white">Administrator</div>
           <div className="truncate text-[13px]">{admin?.email}</div>
         </div>
         <nav className="flex flex-col gap-1 p-2">
           {NAV.map((n) => (
             <NavLink key={n.to} to={n.to} end={n.end} onClick={() => setMenu(false)}
-              className={({ isActive }) => `flex items-center gap-3 rounded px-3 py-2 ${isActive ? 'bg-[#0d6efd] text-white' : 'hover:bg-white/10 hover:text-white'}`}>
+              className={({ isActive }) => `flex items-center gap-3 rounded px-3 py-2 ${isActive ? 'bg-white/15 font-semibold text-white shadow-[inset_3px_0_0_#fff]' : 'hover:bg-white/10 hover:text-white'}`}>
               <Icon name={n.icon} />{n.label}
             </NavLink>
           ))}
