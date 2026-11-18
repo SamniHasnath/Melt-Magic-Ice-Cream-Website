@@ -11,7 +11,8 @@ export default defineConfig({
     }
   },
   server: {
-    port: 5173
+    port: 5173,
+    host: true // also serve on the local network, so phones on the same Wi-Fi can open it
   },
   build: {
     chunkSizeWarningLimit: 1500,

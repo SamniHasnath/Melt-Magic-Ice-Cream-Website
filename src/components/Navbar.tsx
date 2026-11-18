@@ -40,6 +40,10 @@ export function Navbar() {
             {l.label}
           </NavLink>
         ))}
+        {/* on phones the Admin button is hidden to save space, so offer it in the menu instead */}
+        <Link to="/admin" className="mt-1 border-t border-ink/10 px-3 pb-2 pt-3 text-[15px] font-bold transition hover:text-accent sm:hidden">
+          Admin
+        </Link>
       </div>
       <div className="flex items-center gap-2.5">
         <Link to="/admin" className="btn-light hidden sm:inline-flex">Admin</Link>
