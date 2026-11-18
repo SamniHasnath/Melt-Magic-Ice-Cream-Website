@@ -1,4 +1,4 @@
-# Melt & Magic — 3D Ice Cream Shop (Frontend)
+# Melt & Magic - 3D Ice Cream Shop (Frontend)
 
 The website and admin panel for **Melt & Magic**, a small-batch ice cream shop in Colombo.
 Every treat on the site (cones, cups, sticks, sundaes, shakes and sandwiches) is a real-time
