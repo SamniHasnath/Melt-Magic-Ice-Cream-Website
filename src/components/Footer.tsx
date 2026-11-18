@@ -2,6 +2,16 @@ import { type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { toast, useUi } from '@/store/ui';
 
+const svg = (d: string) => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d={d} /></svg>
+);
+
+const CONTACT = [
+  { label: 'Call us', value: '+94 76 004 1594', href: 'tel:+94760041594', icon: svg('M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2') },
+  { label: 'Email us', value: 'info@neirahtech.com', href: 'mailto:info@neirahtech.com', icon: svg('M3 6h18v12H3zM3 7l9 6 9-6') },
+  { label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/94760041594', external: true, icon: svg('M4 20l1.3-3.9A8 8 0 1 1 8 19zM9 10c0 2.5 2.5 5 5 5l1.2-1.2-2-1-.8.8a4 4 0 0 1-2-2l.8-.8-1-2z') },
+];
+
 export function Footer() {
   const confetti = useUi((s) => s.confetti);
   const join = (e: FormEvent<HTMLFormElement>) => {
@@ -31,17 +41,38 @@ export function Footer() {
         {[
           ['Shop', [['All treats', '/shop'], ['Build your own', '/build'], ['Cones', '/shop?type=cone'], ['Shakes', '/shop?type=shake']]],
           ['Company', [['Visit us', '/#visit'], ['Reviews', '/#love'], ['Admin', '/admin']]],
-          ['Help', [['Delivery', '/#visit'], ['Allergens', '/#visit'], ['Contact', '/#visit']]],
         ].map(([h, links]) => (
           <div key={h as string}>
             <h5 className="mb-3 font-mono text-xs uppercase text-ink/50">{h as string}</h5>
             {(links as string[][]).map(([l, to]) => <Link key={l} to={to} className="mb-2 block text-sm font-semibold hover:text-accent hover:underline">{l}</Link>)}
           </div>
         ))}
+        <div>
+          <h5 className="mb-3 font-mono text-xs uppercase text-ink/50">Contact</h5>
+          <div className="grid gap-3.5">
+            {CONTACT.map((c) => (
+              <a key={c.label} href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noreferrer' : undefined} className="group flex items-center gap-3">
+                <span className="grid h-10 w-10 flex-none place-items-center rounded-full bg-ink/5 text-ink/70 transition group-hover:bg-accent group-hover:text-white">{c.icon}</span>
+                <span className="leading-tight">
+                  <small className="block text-[12px] text-ink/50">{c.label}</small>
+                  <span className="text-sm font-semibold group-hover:text-accent">{c.value}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="flex flex-wrap justify-between gap-3 border-t border-ink/10 pt-6 font-mono text-[12px] text-ink/60">
-        <span>© 2026 Melt &amp; Magic</span>
-        <span>42 Marine Drive, Colombo 03</span>
+
+      <div className="grid justify-items-center gap-4 border-t border-ink/10 pt-7 text-center text-[13px] text-ink/60">
+        <p>© 2026 Melt &amp; Magic. All rights reserved.</p>
+                <p className="mt-2">Designed &amp; developed by</p>
+        <a href="mailto:info@neirahtech.com" className="rounded-2xl bg-white px-4 py-2.5 shadow-card transition hover:-translate-y-0.5">
+          <img src="/neirah-logo-footer.jpg" alt="neirah tech" width={570} height={362} loading="lazy" className="h-14 w-auto" />
+        </a>
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+          <a href="tel:+94760041594" className="hover:text-accent">+94 76 004 1594</a>
+          <a href="mailto:info@neirahtech.com" className="hover:text-accent">info@neirahtech.com</a>
+        </div>
       </div>
     </footer>
   );

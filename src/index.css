@@ -94,7 +94,7 @@
 /* ---------------- Admin panel (standard dashboard look) ---------------- */
 @layer components {
   .admin {
-    --primary: #0d6efd; --success: #198754; --warning: #ffc107; --danger: #dc3545; --info: #0dcaf0;
+    --primary: #1e3a5f; --success: #198754; --warning: #ffc107; --danger: #dc3545; --info: #0dcaf0;
     --border: #dee2e6; --muted: #6c757d; --text: #212529; --light: #f8f9fa;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     @apply bg-[#f4f6f9] text-[15px] text-[#212529];
@@ -106,21 +106,21 @@
   .admin .btn-dark, .admin .btn-light, .admin .btn-accent {
     @apply rounded px-3 py-1.5 text-[14px] font-normal backdrop-blur-none active:scale-100; box-shadow: none; border: 1px solid transparent; }
   .admin .btn-dark { background: var(--primary); border-color: var(--primary); color: #fff; }
-  .admin .btn-dark:hover { background: #0b5ed7; }
+  .admin .btn-dark:hover { background: #162c49; }
   .admin .btn-light { background: #fff; border-color: #ced4da; color: var(--text); }
   .admin .btn-light:hover { background: #e9ecef; }
   .admin .btn-accent { background: var(--danger); border-color: var(--danger); color: #fff; }
   .btn-sm { @apply rounded border px-2 py-1 text-[13px] leading-tight transition; }
-  .btn-sm-primary { @apply btn-sm border-[#0d6efd] text-[#0d6efd] hover:bg-[#0d6efd] hover:text-white; }
+  .btn-sm-primary { @apply btn-sm border-[#1e3a5f] text-[#1e3a5f] hover:bg-[#1e3a5f] hover:text-white; }
   .btn-sm-secondary { @apply btn-sm border-[#6c757d] text-[#6c757d] hover:bg-[#6c757d] hover:text-white; }
   .btn-sm-danger { @apply btn-sm border-[#dc3545] text-[#dc3545] hover:bg-[#dc3545] hover:text-white; }
 
   /* forms */
-  .admin .input { @apply rounded border border-[#ced4da] bg-white px-3 py-1.5 text-[15px] backdrop-blur-none focus:border-[#86b7fe] focus:ring-4 focus:ring-[#0d6efd]/20; }
+  .admin .input { @apply rounded border border-[#ced4da] bg-white px-3 py-1.5 text-[15px] backdrop-blur-none focus:border-[#7b93b3] focus:ring-4 focus:ring-[#1e3a5f]/20; }
   .admin .field { @apply gap-1 text-[14px] font-semibold text-[#212529]; }
   .form-text { @apply mt-1 text-[13px] font-normal text-[#6c757d]; }
   .admin .switch { @apply h-5 w-9 border border-[#adb5bd] bg-white after:left-[2px] after:top-[2px] after:h-3.5 after:w-3.5 after:bg-[#adb5bd] after:shadow-none; }
-  .admin .switch[aria-checked='true'] { @apply border-[#0d6efd] bg-[#0d6efd] after:translate-x-4 after:bg-white; }
+  .admin .switch[aria-checked='true'] { @apply border-[#1e3a5f] bg-[#1e3a5f] after:translate-x-4 after:bg-white; }
 
   /* cards */
   .admin .glass, .card { @apply rounded border border-[#dee2e6] bg-white backdrop-blur-none; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
@@ -142,7 +142,7 @@
 
   /* badges */
   .badge { @apply inline-block whitespace-nowrap rounded px-1.5 py-0.5 text-[12px] font-semibold leading-none text-white; }
-  .badge-primary { @apply badge bg-[#0d6efd]; }
+  .badge-primary { @apply badge bg-[#1e3a5f]; }
   .badge-secondary { @apply badge bg-[#6c757d]; }
   .badge-success { @apply badge bg-[#198754]; }
   .badge-warning { @apply badge bg-[#ffc107] text-[#212529]; }
