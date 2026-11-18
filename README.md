@@ -201,8 +201,11 @@ All admin styles are in `src/index.css` under the **"Admin panel"** comment and 
 the `.admin` wrapper, so they never affect the shop. The colours are variables at the top of that block:
 
 ```css
---primary: #0d6efd; --success: #198754; --warning: #ffc107; --danger: #dc3545;
+--primary: #1e3a5f; --success: #198754; --warning: #ffc107; --danger: #dc3545;
 ```
+
+The sidebar, dashboard stat boxes, primary buttons and highlights all use the one navy (`#1e3a5f`).
+Status badges keep their own colours (green, yellow, red) because the colour tells you the status.
 
 Reusable admin classes: `card`, `card-header`, `card-body`, `stat`, `table`,
 `badge-primary|secondary|success|warning|danger|info`, `btn-sm-primary|secondary|danger`,
